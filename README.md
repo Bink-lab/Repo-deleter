@@ -1,54 +1,68 @@
-# repo-deleter
+# Repo Deleter
 
-A Rust-based command-line tool to delete GitHub repositories.
+Repo Deleter is a command-line tool written in Rust that allows you to list and delete your GitHub repositories in bulk. It uses the GitHub API and requires a personal access token with the appropriate permissions.
 
-## Building the Project
+## Features
 
-To build the `repo-deleter` executable, you need to have Rust and Cargo installed. If you don't have them, you can install them from [rust-lang.org](https://www.rust-lang.org/tools/install).
+- Lists all repositories for the authenticated user
+- Allows selection of multiple repositories for deletion
+- Deletes selected repositories via the GitHub API
 
-1.  **Clone the repository:**
-    ```bash
-    git clone <repository-url>
-    cd repo-deleter
-    ```
-2.  **Build in release mode (optimized for size):**
-    ```bash
-    cargo build --release
-    ```
-    The executable will be located at `target/release/repo-deleter.exe` (on Windows) or `target/release/repo-deleter` (on Linux/macOS).
+## Prerequisites
 
-## GitHub Personal Access Token (PAT)
+- [Rust](https://www.rust-lang.org/tools/install) (latest stable recommended)
+- A GitHub personal access token with `repo` and `delete_repo` permissions
 
-This tool requires a GitHub Personal Access Token (PAT) to authenticate with the GitHub API and delete repositories.
+## Build Instructions
 
-### How to Obtain a GitHub PAT:
+1. Clone this repository:
+   ```powershell
+   git clone https://github.com/Bink-lab/Repo-deleter.git
+   cd Repo-deleter
+   ```
+2. Build the project using Cargo:
+   ```powershell
+   cargo build --release
+   ```
+   The compiled binary will be located at `target\release\repo-deleter.exe`.
 
-1.  Go to your GitHub settings: [https://github.com/settings/tokens](https://github.com/settings/tokens)
-2.  Click on "Generate new token" or "Generate new token (classic)". For this tool, a "classic" token is sufficient.
-3.  **Note:** GitHub recommends using fine-grained tokens for better security. If you choose a fine-grained token, ensure it has the necessary permissions to delete repositories. For a classic token, you will need to grant the `delete_repo` scope.
-4.  Give your token a descriptive name (e.g., "repo-deleter-cli").
-5.  **Crucially, copy the generated token immediately.** You will not be able to see it again once you leave the page.
+## Usage
 
-### Using the PAT with `repo-deleter`:
+1. Run the program:
+   ```powershell
+   target\release\repo-deleter.exe
+   ```
+2. When prompted, enter your GitHub personal access token.
+3. The tool will list your repositories. Enter the numbers (comma-separated) of the repositories you want to delete.
+4. Confirm and the tool will attempt to delete the selected repositories.
 
-The `repo-deleter` tool will likely expect the PAT as an environment variable or a command-line argument. Please refer to the tool's usage instructions for the exact method. A common approach is to set an environment variable like `GITHUB_TOKEN`:
+### Example
 
-**Windows (Command Prompt):**
-```cmd
-set GITHUB_TOKEN=YOUR_PERSONAL_ACCESS_TOKEN
-repo-deleter.exe <arguments>
+```
+Enter your GitHub token: <your_token>
+
+Your repositories:
+1: repo-one
+2: repo-two
+3: repo-three
+
+Enter the numbers of the repositories you want to delete (comma-separated): 2,3
+
+Deleting selected repositories...
+Successfully deleted repo-two
+Successfully deleted repo-three
 ```
 
-**Windows (PowerShell):**
-```powershell
-$env:GITHUB_TOKEN="YOUR_PERSONAL_ACCESS_TOKEN"
-.epo-deleter.exe <arguments>
-```
+## Download
 
-**Linux/macOS:**
-```bash
-export GITHUB_TOKEN="YOUR_PERSONAL_ACCESS_TOKEN"
-./repo-deleter <arguments>
-```
+Pre-built binaries (if available) can be downloaded from the [Releases page](https://github.com/Bink-lab/Repo-deleter/releases).
 
-**Replace `YOUR_PERSONAL_ACCESS_TOKEN` with the actual token you generated.**
+1. Go to the [Releases page](https://github.com/Bink-lab/Repo-deleter/releases).
+2. Download the latest release for your platform (e.g., `repo-deleter.exe` for Windows).
+3. Run the binary as described above.
+
+## Security Note
+
+**Warning:** Deleting repositories is irreversible. Use this tool with caution. Always double-check your selections before confirming deletion.
+
+Your GitHub token is only used locally to authenticate with the GitHub API. Never share your token with others.
